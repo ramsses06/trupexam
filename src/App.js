@@ -11,13 +11,15 @@ function App({ user }) {
       <BrowserRouter>
         <Switch>
           <PrivateRoute exact path='/' loggedIn={user?.email} component={Home} />
-          <Route exact path='/login'>
-            {user?.email ? <Redirect to={
-              {
-                pathname: '/',
+          <Route
+            exact
+            path='/login'
+            render={
+              props => {
+                return user?.email ? <Redirect to={{ pathname: '/' }} /> : <Login props{...props}/>
               }
-            } /> : <Login />}
-          </Route>
+            }
+          />
         </Switch>
       </BrowserRouter>
     </div>
